@@ -1,0 +1,13 @@
+﻿生成启动时间为 2018/8/29 0:09:34。
+     1>项目“D:\VSworkspace\26_opencv005\26_opencv005\26_opencv005.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         D:\Program Files\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+       Link:
+         D:\Program Files\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\VSworkspace\26_opencv005\x64\Debug\26_opencv005.exe" /INCREMENTAL /NOLOGO opencv_world341d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\VSworkspace\26_opencv005\x64\Debug\26_opencv005.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\VSworkspace\26_opencv005\x64\Debug\26_opencv005.lib" /MACHINE:X64 x64\Debug\main.obj
+         26_opencv005.vcxproj -> D:\VSworkspace\26_opencv005\x64\Debug\26_opencv005.exe
+     1>已完成生成项目“D:\VSworkspace\26_opencv005\26_opencv005\26_opencv005.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:01.55
