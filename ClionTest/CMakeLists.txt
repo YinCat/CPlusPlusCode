@@ -14,7 +14,7 @@ set(TARGET_LIBS
         "D:\\\\opencv3.2\\\\install\\\\x64\\\\mingw\\\\lib\\\\libopencv_highgui320.dll.a"
         "D:\\\\opencv3.2\\\\install\\\\x64\\\\mingw\\\\lib\\\\libopencv_imgproc320.dll.a"
         "D:\\\\opencv3.2\\\\install\\\\x64\\\\mingw\\\\lib\\\\libopencv_imgcodecs320.dll.a")
-
+#只写两个\\的写法是错误的
 #include_directories("D:\\opencv3.2\\install\\include")
 #
 #set(TARGET_LIBS
