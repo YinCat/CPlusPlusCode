@@ -5,7 +5,7 @@ using namespace cv;
 using namespace std;
 int main() {
 
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Hello,  World!" << std::endl;
     Mat mat = imread("D:\\VSworkspace\\Image\\a.jpg");
     if(mat.empty()){
         cout<<"load filed..."<<endl;
