@@ -3,7 +3,8 @@
 //
 #include <time.h>
 #include "HashTableBucket.h"
-int HashFunc(HTBKeyType key, HashTableBucket *htb)
+
+static int HashFunc(HTBKeyType key, const HashTableBucket *htb)
 {
     return key%htb->len;
 }
@@ -14,10 +15,11 @@ static int GetNextPrime(int len) {
     {
         if(len<_PrimeList[i])
         {
-            return _PrimeList[i];
+            return (int) _PrimeList[i];
         }
     }
-    return _PrimeList[PRIME_LEN-1];
+    //直接返回最大值的素数即可
+    return PRIME_LEN;
 }
 void HTBInit(HashTableBucket* htb, int len)
 {
@@ -51,7 +53,8 @@ void HTBDestory(HashTableBucket* htb)
     htb->size = 0;
 }
 
-int HTBInsert(HashTableBucket* htb, HTBKeyType key, HTBValueType value);
+//前置声明
+//int HTBInsert(HashTableBucket* htb, HTBKeyType key, HTBValueType value); //C99中我就不这样干了
 //控制负载
 void HTBCheckCapacity(HashTableBucket *htb)
 {
@@ -84,7 +87,7 @@ void HTBCheckCapacity(HashTableBucket *htb)
     }
 
 }
-HashNode* BuyNode(HTBKeyType key,HTBValueType value)
+static HashNode* BuyNode(HTBKeyType key,HTBValueType value)
 {
     HashNode *newNode = (HashNode*)malloc(sizeof(HashNode));
     if(newNode == NULL)
@@ -115,6 +118,7 @@ int HTBInsert(HashTableBucket* htb, HTBKeyType key, HTBValueType value)
     newNode->next = htb->tables[index];
     htb->tables[index] = newNode;
     htb->size++;
+    return 1;
 }
 
 int HTBRemove(HashTableBucket* htb, HTBKeyType key)
@@ -142,7 +146,7 @@ int HTBRemove(HashTableBucket* htb, HTBKeyType key)
     return -1;
 }
 
-HashNode* HTBFind(HashTableBucket* htb, HTBKeyType key)
+HashNode* HTBFind(const HashTableBucket* htb, HTBKeyType key)
 {
     int index = HashFunc(key, htb);
     assert(htb);
@@ -156,19 +160,19 @@ HashNode* HTBFind(HashTableBucket* htb, HTBKeyType key)
     return NULL;
 }
 
-int HTBSize(HashTableBucket* htb)
+int HTBSize(const HashTableBucket* htb)
 {
     assert(htb);
     return htb->size;
 }
 //空返回1，非空返回0
-int HTBEmpty(HashTableBucket* htb)
+int HTBEmpty(const HashTableBucket* htb)
 {
     assert(htb);
     return htb->size == 0 ? 1 : 0;
 }
 
-void HTBPrint(HashTableBucket* htb)
+void HTBPrint(const HashTableBucket* htb)
 {
     int i = 0;
     assert(htb);
@@ -200,6 +204,10 @@ void TestHashTableBucket()
         HTBInsert(&htb, rand(), 0);
     }
     HTBPrint(&htb);
+    HTBRemove(&htb,10000);
+    HTBEmpty(&htb);
+    HTBSize(&htb);
+    HTBFind(&htb, 75);
     HTBDestory(&htb);
 }
 

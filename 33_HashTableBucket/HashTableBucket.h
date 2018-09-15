@@ -44,12 +44,12 @@ void HTBDestory(HashTableBucket* htb);
 
 int HTBInsert(HashTableBucket* htb, HTBKeyType key, HTBValueType value);
 int HTBRemove(HashTableBucket* htb, HTBKeyType key);
-HashNode* HTBFind(HashTableBucket* htb, HTBKeyType key);
+HashNode* HTBFind(const HashTableBucket* htb, HTBKeyType key);
 
-int HTBSize(HashTableBucket* htb);
-int HTBEmpty(HashTableBucket* htb);
+int HTBSize(const HashTableBucket* htb);
+int HTBEmpty(const HashTableBucket* htb);
 
-void HTBPrint(HashTableBucket* htb);
+void HTBPrint(const HashTableBucket* htb);
 
 void TestHashTableBucket();
 
