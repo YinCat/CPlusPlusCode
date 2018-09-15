@@ -7,11 +7,7 @@
 #include <assert.h>
 #include <string.h>
 #include <time.h>
-//typedef char* HTBKeyType;
-//typedef char* HTBValueType;
 
-//typedef char* HTBKeyType;
-//typedef int HTBValueType;
 
 // 使用素数表对齐做哈希表的容量，降低哈希冲突 
 #define PRIME_LEN 28
