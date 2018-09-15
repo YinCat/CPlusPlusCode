@@ -49,9 +49,8 @@ HashNode* HTBFind(HashTableBucket* htb, HTBKeyType key);
 int HTBSize(HashTableBucket* htb);
 int HTBEmpty(HashTableBucket* htb);
 
-void TestHashTableBucket();
+void HTBPrint(HashTableBucket* htb);
 
-//控制负载
-void HBTCheckCapacity(HashTableBucket *htb);
+void TestHashTableBucket();
 
 #endif //_HASHTABLEBUCKET_H__
