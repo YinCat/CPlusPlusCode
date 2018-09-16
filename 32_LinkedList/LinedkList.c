@@ -91,7 +91,6 @@ void PopFront(pNodeList *pplist)
     cur = (*pplist);
     *pplist = (*pplist)->next;
     free(cur);
-    cur = NULL;
 }
 void PopBack(pNodeList *pplist)
 {
@@ -127,6 +126,64 @@ ListNode const* Find(struct ListNode const * plist,DataType data)
 }
 
 void Remove(pNodeList *pplist,DataType data)
-{}
+{
+    ListNode *cur = NULL;
+    ListNode *prev = NULL;
 
-void RemoveAll(pNodeList *pplist,DataType data);
+    assert(pplist);
+
+    cur = *pplist;
+    if(cur == NULL)
+        return;
+    while(cur)
+    {
+        if(cur->data == data)
+            break;
+        prev = cur;
+        cur = cur->next;
+    }
+    if(prev == NULL)//能走到这里说明第一个节点就是需要删除的元素
+    {
+        *pplist = cur->next;
+        free(cur);
+        return;
+    }
+    else
+    {
+        if(cur == NULL)
+            return;
+        prev->next = cur->next;
+        free(cur);
+        cur = NULL;
+    }
+}
+
+void RemoveAll(pNodeList *pplist,DataType data)
+{
+    //TODO 最后一个元素删除的时候死循环了
+    ListNode *cur = NULL;
+    ListNode *prev = NULL;
+
+    assert(pplist);
+
+    cur = *pplist;
+    if(cur == NULL)
+        return;
+    while(cur) {
+        if (cur->data == data) {
+            //删除
+            if(prev == NULL)//头删
+            {
+                *pplist = (*pplist)->next;
+                free(cur);
+            }
+            else
+            {
+                prev->next = cur->next;
+                free(cur);
+            }
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+}
