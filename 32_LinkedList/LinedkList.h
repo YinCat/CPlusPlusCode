@@ -17,11 +17,13 @@ typedef struct ListNode{
 }ListNode,*pNodeList;
 
 void InitList(pNodeList *pplist);
-
 void Destory(pNodeList *pplist);
-
 void PushBack(pNodeList *pplist,DataType data);
-
-void PrintList(pNodeList plist);
-
+void PushFront(pNodeList *pplist,DataType data);
+void PrintList(const struct ListNode *plist);
+void PopFront(pNodeList *pplist);
+void PopBack(pNodeList *pplist);
+ListNode const* Find(struct ListNode const* plist,DataType data);
+void Remove(pNodeList *pplist,DataType data);
+void RemoveAll(pNodeList *pplist,DataType data);
 #endif //INC_32_LINKEDLIST_LINEDKLIST_H
