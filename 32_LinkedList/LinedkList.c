@@ -12,13 +12,17 @@ void InitList(pNodeList *pplist)
 
 void Destory(pNodeList *pplist)
 {
-    pNodeList list = *pplist;
-    pNodeList cur = NULL;
+    pNodeList cur = *pplist;
+    pNodeList next = NULL;
     assert(pplist);
     if(*pplist == NULL)
         return;
-    while
-
+    while(cur != NULL)
+    {
+        next = cur->next;
+        free(cur);
+        cur = next;
+    }
 }
 
 static pNodeList BuyNode(DataType data)
@@ -58,11 +62,11 @@ void PrintList(pNodeList plist)
     pNodeList cur = NULL;
     if(plist == NULL)
         return;
+    cur = plist;
     while(cur)
     {
-        printf("%d--->",cur->data);
+        printf("%d-->",cur->data);
         cur = cur->next;
     }
     printf("END\n");
 }
-
