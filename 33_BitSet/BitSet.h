@@ -25,6 +25,6 @@ void BitSetReset(BitSet* pbs, size_t x);
 // 不在 返回0
 int BitSetTest(BitSet* pbs, size_t x);
 
-
+void TestBitSet(void);
 
 #endif //INC_33_BITSET_BITSET_H

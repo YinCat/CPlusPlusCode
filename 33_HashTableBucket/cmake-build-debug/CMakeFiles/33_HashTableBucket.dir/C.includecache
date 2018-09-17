@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/VSworkspace/33_HashTableBucket/HashTableBucket.c
+time.h
+-
+HashTableBucket.h
+D:/VSworkspace/33_HashTableBucket/HashTableBucket.h
+
+D:/VSworkspace/33_HashTableBucket/HashTableBucket.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+error.h
+-
+assert.h
+-
+
+D:/VSworkspace/33_HashTableBucket/main.c
+HashTableBucket.h
+D:/VSworkspace/33_HashTableBucket/HashTableBucket.h
+
