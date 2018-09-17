@@ -47,7 +47,7 @@ void TestBitSet(void)
 {
 
     BitSet bs;
-    BitSetInit(&bs, -1);
+    BitSetInit(&bs, 100);
     BitSetSet(&bs, 5);
     BitSetSet(&bs, 2);
     BitSetSet(&bs, 200);
