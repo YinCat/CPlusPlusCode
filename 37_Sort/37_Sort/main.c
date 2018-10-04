@@ -2,6 +2,9 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
+#include "Stack.h"
 
 void PrintArray(const int *arr,int n)
 {
@@ -333,24 +336,87 @@ void QuickSort4(int *a, int left, int right)
 	QuickSort(a, div + 1, right);
 }
 
-//非递归排序
-void QuickSortNonR(int *a, int left, int ruight)
+//非递归快速排序
+void QuickSortNonR(int *a, int left, int right)
 {
+	Stack st;
+	StackInit(&st);
+	StackPush(&st, left);
+	StackPush(&st, right);
+	while (StackEmpty(&st))
+	{
+		int end = StackTop(&st);
+		StackPop(&st);
+		int begin = StackTop(&st);
+		StackPop(&st);
+
+		int div = PartSort(a, begin, end);
+		if (begin < div - 1)
+		{
+			StackPush(&st, begin);
+			StackPush(&st, div - 1);
+		}
+		if (div + 1 < end)
+		{
+			StackPush(&st, div + 1);
+			StackPush(&st, end);
+		}
+	}
+}
+
+void Merge(int *a, int begin1, int end1, int begin2, int end2, int *tmp)
+{
+	int start = begin1;
+	int n = end2 - begin1 + 1;
+	int index = begin1;
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (a[begin1] < a[begin2])
+			tmp[index++] = a[begin1++];
+		else
+			tmp[index++] = a[begin2++];
+	}
+	while (begin1 <= end1)
+		tmp[index++] = a[begin1++];
+	while (begin2 <= end2)
+		tmp[index++] = a[begin2++];
+
+	memcpy(a + start, tmp+start, sizeof(int)*n);
+}
+//归并排序
+void _MergeSort(int *a, int begin, int end, int *tmp)
+{
+	int mid = begin + ((end - begin) >> 1);
+	if (begin >= end)
+		return;
+	//[begin, mid][mid+1, end]
+	_MergeSort(a, begin, mid, tmp);
+	_MergeSort(a, mid + 1, end, tmp);
+	
+	Merge(a, begin, mid, mid + 1, end, tmp);
+
+}
+void MergeSort(int *a, int n)
+{
+	assert(a);
+	int *tmp = (int*)malloc(sizeof(int)*n);
+	_MergeSort(a, 0, n - 1, tmp);
+	free(tmp);
 
 }
 int main(int argc, char* argv[]) {
     int array[]={20,6,18,3,5,11,19,4,2,6,1};
     int len = sizeof(array)/sizeof(int);
 	int i = 0;
-	clock_t start, finish;
-	int arr[10000] = { 0 };
-	srand((unsigned int)time(NULL));
-    //PrintArray(array,len);
-	for (i = 0; i < 10000; i++)
-	{
-		arr[i] = i;
-	}
-	start = clock();
+	//clock_t start, finish;
+	//int arr[10000] = { 0 };
+	//srand((unsigned int)time(NULL));
+    PrintArray(array,len);
+	//for (i = 0; i < 10000; i++)
+	//{
+	//	arr[i] = i;
+	//}
+	//start = clock();
     //InsertSort(array,len);
     //ShellSort(array,len);
     //SelectSort(array,len);
@@ -358,12 +424,15 @@ int main(int argc, char* argv[]) {
     //HeapSort(array,len);
     // BubbleSort(array,len);
 	//QuickSort3(arr, 0, 100000);
-	QuickSort4(arr, 0, 10000);
+	//QuickSort4(arr, 0, 10000);
 	//QuickSort4(array, 0, len - 1);
-	finish = clock();
-	printf("ret = %f\n",(double)(finish-start));
+	//finish = clock();
+	//printf("ret = %f\n",(double)(finish-start));
 	//PrintArray(arr, 100000);
-	//PrintArray(array, len);
+	//QuickSortNonR(array, 0, len-1);
+	MergeSort(array, len);
+	PrintArray(array, len);
+
 	system("pause");
     return 0;
 }
