@@ -1,4 +1,0 @@
-"D:\Program Files\CMake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\VSworkspace\32_LinkedList
--- Configuring done
--- Generating done
--- Build files have been written to: D:/VSworkspace/32_LinkedList/cmake-build-debug

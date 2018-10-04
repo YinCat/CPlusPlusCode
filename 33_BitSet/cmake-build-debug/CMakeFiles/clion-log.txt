@@ -1,4 +1,0 @@
-"D:\Program Files\CMake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\VSworkspace\33_BitSet
--- Configuring done
--- Generating done
--- Build files have been written to: D:/VSworkspace/33_BitSet/cmake-build-debug
