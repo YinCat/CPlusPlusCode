@@ -163,16 +163,14 @@ void HeapAdjust(int *arr,int root,int len)
         }
         // 1.若大的孩子节点大于根节点,则不再需要调整,跳出循环
         // 2.否则,交换孩子节点和根节点,将根节点继续往下调整
-        if(arr[child] > arr[root])
-        {
-            Swap(&arr[child], &arr[root]);
-            root = child;
-            child = child*2 +1;
-        }
-        else
-        {
-            break;
-        }
+		if (arr[child] > arr[root])
+		{
+			Swap(&arr[child], &arr[root]);
+			root = child;
+			child = child * 2 + 1;
+		}
+		else
+			return;
     }
 }
 //堆排序
@@ -186,11 +184,12 @@ void HeapSort(int *arr, int len)
     {
         HeapAdjust(arr, i, len);
     }
-    //向下调整
+    //排序
     for(i = len-1;i > 0; i--)
     {
         Swap(&arr[i], &arr[0]);
         HeapAdjust(arr, 0, i);
+		//HeapAdjust(arr, i, 0);
     }
 }
 
@@ -218,21 +217,25 @@ void BubbleSort(int* arr, int len)
 
 
 //快速排序
-int PartSort(int *a, int begin, int end)
+int PartSort(int *a, int left, int right)
 {
-	int key = a[end];
-	int keyindex = end;
+	int key = a[right];
+	int begin = left;
+	int end = right - 1;
 	while (begin < end)
 	{
-		//找大的
+		//找比基准值大的
 		while ((begin < end) && (a[begin] <= key))
-			++begin;
-		//找小的
+			begin++;
+		//找比基准值小的
 		while ((begin < end) && (a[end] >= key))
-			--end;
-		Swap(&a[begin], &a[end]);
+			end--;
+		if (begin<end)
+			Swap(&a[begin], &a[end]);
 	}
-	Swap(&a[begin], &a[keyindex]);
+	//最后别忘记把基准值和相遇点交换
+	if (begin != right - 1)
+		Swap(&a[begin], &a[right-1]);
 	return begin;
 }
 void QuickSort(int *a, int left, int right)
@@ -241,7 +244,7 @@ void QuickSort(int *a, int left, int right)
 	if (left >= right)
 		return;
 	int div = PartSort(a, left, right);
-	QuickSort(a, left, div - 1);
+	QuickSort(a, left, div);
 	QuickSort(a, div + 1, right);
 }
 //挖坑法
@@ -444,11 +447,11 @@ int main(int argc, char* argv[]) {
 	//start = clock();
     //InsertSort_OP(array,len);
     //ShellSort(array,len);
-    SelectSort(array,len);
+    //SelectSort(array,len);
     //SelectSort_OP(array,len);
     //HeapSort(array,len);
     // BubbleSort(array,len);
-	//QuickSort3(arr, 0, 100000);
+	QuickSort(array, 0, len);
 	//QuickSort4(arr, 0, 10000);
 	//QuickSort4(array, 0, len - 1);
 	//finish = clock();
