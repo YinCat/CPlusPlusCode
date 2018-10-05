@@ -27,19 +27,49 @@ void InsertSort(int *arr, int n)
 {
     int index = 0;
     assert(arr);
-    for(index=0;index<n;index++)
+    for(index = 1; index < n; index++)
     {
         //将当前数据往前插入
         int end = index-1;
         int temp = arr[index];
-        while(end>=0 && temp<arr[end])
+        while(end >= 0 && temp < arr[end])
         {
             arr[end+1] = arr[end];
             --end;
         }
-
         arr[end+1] = temp;
     }
+}
+
+//插入排序
+void InsertSort_OP(int *arr, int n)
+{
+	int index = 0;
+	
+	for (index = 1; index < n; index++)
+	{
+		int temp = arr[index];
+		//通过二分查找 找出待插入元素的位置
+		int left = 0;
+		int right = index - 1;
+		while (left <= right)
+		{
+			int mid = left + ((right - left) >> 1);
+			if (temp >= arr[mid])
+				left = mid + 1;
+			else
+				right = mid - 1;
+		}
+		//将当前数据往前插入
+		int end = index - 1;
+		//搬移元素
+		while (end >= left)
+		{
+			arr[end + 1] = arr[end];
+			--end;
+		}
+		arr[left] = temp;
+	}
 }
 
 //希尔排序
@@ -70,24 +100,19 @@ void SelectSort(int *arr, int n)
 {
     int index = 0;
     assert(arr);
-    for(index=0;index<n;index++)
-    {
-        int min = index;
-        int i = 0;
-        for(i=index+1;i<n;i++)
-        {
-            if(arr[min]>arr[i])
-            {
-                min = i;
-            }
-        }
-        if(min != index)
-        {
-            int tmp = arr[index];
-            arr[index] = arr[min];
-            arr[min] = tmp;
-        }
-    }
+	for (index = 0; index < n; index++)
+	{
+		int maxPos = 0;
+		int i = 1;
+		//找最大元素的位置
+		for (i = 1; i < n-index; i++)
+		{
+			if (arr[i] > arr[maxPos])
+				maxPos = i;
+		}
+		if (maxPos != (n - index - 1))
+			Swap(&arr[maxPos], &arr[n-index-1]);
+	}
 }
 
 //选择排序的优化
@@ -148,17 +173,16 @@ void HeapAdjust(int *arr,int root,int len)
         {
             break;
         }
-
     }
 }
 //堆排序
 void HeapSort(int *arr, int len)
 {
 
-    int i = 0;
+	int i = (len - 2)>>1;
     assert(arr);
     //建堆
-    for(i=(len-2)/2; i>=0; i--)
+    for( ; i>=0; i--)
     {
         HeapAdjust(arr, i, len);
     }
@@ -404,8 +428,9 @@ void MergeSort(int *a, int n)
 	free(tmp);
 
 }
+//稳定排序的理解
 int main(int argc, char* argv[]) {
-    int array[]={20,6,18,3,5,11,19,4,2,6,1};
+    int array[]={3,5,11,19,4};
     int len = sizeof(array)/sizeof(int);
 	int i = 0;
 	//clock_t start, finish;
@@ -417,9 +442,9 @@ int main(int argc, char* argv[]) {
 	//	arr[i] = i;
 	//}
 	//start = clock();
-    //InsertSort(array,len);
+    //InsertSort_OP(array,len);
     //ShellSort(array,len);
-    //SelectSort(array,len);
+    SelectSort(array,len);
     //SelectSort_OP(array,len);
     //HeapSort(array,len);
     // BubbleSort(array,len);
@@ -430,7 +455,7 @@ int main(int argc, char* argv[]) {
 	//printf("ret = %f\n",(double)(finish-start));
 	//PrintArray(arr, 100000);
 	//QuickSortNonR(array, 0, len-1);
-	MergeSort(array, len);
+	//MergeSort(array, len);
 	PrintArray(array, len);
 
 	system("pause");
