@@ -254,13 +254,10 @@ int PartSort2(int *a, int begin, int end)
 	while (begin < end)
 	{
 		while (begin < end && a[begin] <= key)
-		{
 			++begin;
-		}
 		a[end] = a[begin];
-		while (begin < end && a[end] >= key){
+		while (begin < end && a[end] >= key)
 			--end;
-		}
 		a[begin] = a[end];
 	}
 	a[begin] = key;
@@ -277,23 +274,36 @@ void QuickSort2(int *a, int left, int right)
 }
 
 //前后指针法
-int PartSort3(int *a, int begin, int end)
+//int PartSort3(int *a, int begin, int end)
+//{
+//	int prev = begin - 1;
+//	int cur = begin;
+//	int key = a[end];
+//
+//	while (cur < end)
+//	{
+//		if (a[cur] < key && ++prev != cur)
+//			Swap(&a[cur], &a[prev]);
+//		++cur;
+//	}
+//
+//	Swap(&a[++prev], &a[end]);
+//	return prev;
+//}
+int PartSort3(int *array, int left, int right)
 {
-	int prev = begin - 1;
-	int cur = begin;
-	int key = a[end];
-
-	while (cur < end)
+	int key = array[right - 1];
+	int cur = left;
+	int pre = cur - 1;
+	while (cur < right)
 	{
-		if (a[cur] < key && ++prev != cur)
-			Swap(&a[cur], &a[prev]);
+		if ((array[cur] < key) && (++pre != cur))
+			Swap(&array[cur], &array[pre]);
 		++cur;
 	}
-
-	Swap(&a[++prev], &a[end]);
-	return prev;
+	Swap(&array[++pre], &array[right]);
+	return pre;
 }
-
 void QuickSort3(int *a, int left, int right)
 {
 	assert(a);
@@ -308,7 +318,6 @@ void QuickSort3(int *a, int left, int right)
 	int div = PartSort3(a, left, right);
 	QuickSort(a, left, div - 1);
 	QuickSort(a, div + 1, right);
-	
 }
 
 //三数取中法
@@ -419,7 +428,7 @@ void _MergeSort(int *a, int begin, int end, int *tmp)
 	//[begin, mid][mid+1, end]
 	_MergeSort(a, begin, mid, tmp);
 	_MergeSort(a, mid + 1, end, tmp);
-	
+	//排序的代码
 	Merge(a, begin, mid, mid + 1, end, tmp);
 
 }
@@ -451,7 +460,7 @@ int main(int argc, char* argv[]) {
     //SelectSort_OP(array,len);
     //HeapSort(array,len);
     // BubbleSort(array,len);
-	QuickSort(array, 0, len);
+	QuickSort3(array, 0, len);
 	//QuickSort4(arr, 0, 10000);
 	//QuickSort4(array, 0, len - 1);
 	//finish = clock();

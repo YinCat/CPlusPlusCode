@@ -24,7 +24,7 @@ pNode InitList()
 	return head;
 }
 
-void PushBack(pNode* plist, DataType data)
+void PushBack(pNode *plist, DataType data)
 {
 	pNode head = *plist;
 	pNode tail = head->prev;
