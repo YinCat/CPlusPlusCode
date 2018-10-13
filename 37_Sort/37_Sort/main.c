@@ -442,7 +442,11 @@ void MergeSort(int *a, int n)
 }
 //稳定排序的理解
 int main(int argc, char* argv[]) {
+
     int array[]={3,5,11,19,4};
+
+	int(*p)[5] = &array;
+
     int len = sizeof(array)/sizeof(int);
 	int i = 0;
 	//clock_t start, finish;
