@@ -1,15 +1,15 @@
 #include <iostream>
-#include <list>
+#include <string>
 
 
 #define MAX(a,b) ((a)>(b)?(a):(b))
 
-int main(void)
+int main02(void)
 {
-	int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
-	list<int> s1(arr,arr+6);
-	list<int>::iterator it = s1.begin();
-	std::cout << "helloworld" << std::endl;
+	//int arr[] = { 1, 2, 3, 4, 5, 6, 7 };
+	//list<int> s1(arr,arr+6);
+	//list<int>::iterator it = s1.begin();
+	//std::cout << "helloworld" << std::endl;
 	return 0;
 }
 
@@ -23,7 +23,21 @@ void Swap(int&a, int&b){
 	a = a - b;
 }
 
+class Student{
+public:
+	char* name;
+	int age;
+	void getName(){
+		std::cout << name << endl;
+	}
+};
 
+int main(){
+	Student s;
+	strcpy(s.name, "hello");
+	s.age = 10;
+	s.getName();
+}
 namespace A{
 	int a = 10;
 	namespace B{

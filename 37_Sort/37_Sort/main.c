@@ -295,13 +295,15 @@ int PartSort3(int *array, int left, int right)
 	int key = array[right - 1];
 	int cur = left;
 	int pre = cur - 1;
-	while (cur < right)
+	while (cur < right)//说明区间的元素还没有遍历完成
 	{
 		if ((array[cur] < key) && (++pre != cur))
 			Swap(&array[cur], &array[pre]);
 		++cur;
+		
 	}
-	Swap(&array[++pre], &array[right]);
+	if (++pre != right)
+		Swap(&array[pre], &array[right-1]);
 	return pre;
 }
 void QuickSort3(int *a, int left, int right)
@@ -310,11 +312,6 @@ void QuickSort3(int *a, int left, int right)
 	if (left >= right)
 		return;
 
-	//小区间优化
-	if (right - left + 1 < 10)
-	{
-		InsertSort(a + left, right - left + 1);
-	}
 	int div = PartSort3(a, left, right);
 	QuickSort(a, left, div - 1);
 	QuickSort(a, div + 1, right);
