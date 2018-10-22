@@ -34,7 +34,7 @@ int Date::GetMonthDay(int year, int month){
 //}
 
 Date::Date(int year, int month, int day){
-	if (year > 0 && month > 0 && month <= 12 && day < GetMonthDay(year, month) && day > 0){
+	if (year > 0 && mo nth > 0 && month <= 12 && day < GetMonthDay(year, month) && day > 0){
 		this->_year = year;
 		this->_month = month;
 		this->_day = day;
