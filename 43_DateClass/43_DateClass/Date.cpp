@@ -41,6 +41,7 @@ Date::Date(int year, int month, int day){
 	}
 	else{
 		cout << "Date Create error..." << endl;
+
 	}	
 };
 
