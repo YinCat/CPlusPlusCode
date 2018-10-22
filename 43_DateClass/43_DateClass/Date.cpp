@@ -44,7 +44,7 @@ Date::Date(int year, int month, int day){
 	}	
 };
 
-bool Date::operator>(const Date& d){
+bool Date::operator> (const Date& d){
 	if (this->_year > d._year){
 		return true;
 	}
