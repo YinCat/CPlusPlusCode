@@ -17,8 +17,8 @@ public:
 	bool operator!=(const Date& d);
 
 	int GetMonthDay(int year, int month);
-	int GetYearDay(int year);
-	int GetOneOneDay(int year, int month, int day);
+	//int GetYearDay(int year);
+	//int GetOneOneDay(int year, int month, int day);
 	Date operator+(int day);
 	Date& operator+=(int day);
 	Date operator-(int day);
