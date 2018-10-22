@@ -34,10 +34,11 @@ int Date::GetMonthDay(int year, int month){
 //}
 
 Date::Date(int year, int month, int day){
-	if (year > 0 && month > 0 && month <= 12 && day < GetMonthDay(year, month) && day > 0){
+	if (year > 0 && month > 0 && month <= 12 && day <= GetMonthDay(year, month) && day > 0){
 		this->_year = year;
 		this->_month = month;
 		this->_day = day;
+
 	}
 	else{
 		cout << "Date Create error..." << endl;
@@ -94,18 +95,20 @@ bool Date::operator >=(const Date& d){
 }
 
 Date Date::operator+(int day){
-	this->_day += day;
+	Date ret(*this);
+	Date* pret = &ret;
+	pret->_day += day;
 
 	//GetMonthDay(this->_year, this->_month);//本月有多少天
-	while (this->_day - GetMonthDay(this->_year, this->_month) > 0){	
-		this->_day -= GetMonthDay(this->_year, this->_month);
-		this->_month++;
-		if (this->_month >= 13){
-			this->_month = 1;
-			this->_year++;
+	while (pret->_day - GetMonthDay(pret->_year, pret->_month) > 0){
+		pret->_day -= GetMonthDay(pret->_year, pret->_month);
+		pret->_month++;
+		if (pret->_month >= 13){
+			pret->_month = 1;
+			pret->_year++;
 		}
 	}
-	return *this;
+	return *pret;
 }
 
 void Date::Print(){
@@ -142,25 +145,64 @@ Date& Date::operator-=(int day){
 }
 
 int Date::operator-(const Date& d){
-	int ret = 0;
-	if ((*this) > d){
-		if (this->_day - d._day < 0){
-			this->_month--;
-			if (this->_month == 0){
-				this->_year--;
-				this->_month = 12;
-			}
-			this->_day += GetMonthDay(this->_year, this->_month);
-		}
+	if ((*this) == d)
+		return 0;
 
+	int ret = 0;
+	Date _big;
+	Date _small;
+
+	_big = (*this) > d ? (*this) : d;
+	_small = (*this) < d ? (*this) : d;
+
+	Date _big2(_big);
+	Date _small2(_small);
+
+	Date *tmp = &_big;
+	if (_big._day - _small._day < 0){
+		_big._month--;
+		if (_big._month == 0){
+			_big._year--;
+			_big._month = 12;
+		}
+		_big._day += GetMonthDay(_big._year, _big._month);
 	}
-	else{
-		cout << "error" << endl;
+	_big._day -= _small._day;
+	if (_big._month - _small._month < 0){
+		_big._year--;
+		_big._month += 12;
 	}
+	_big._month -= _small._month;
+	_big._year -= _small._year;
+
+	ret = _big._year * 365 + _big._month * 30 + _big._day;
+	for (int i = -7; i < 8; i++){
+		if (_small2 + (ret + i) == _big2){
+			return (*this)>d ? (ret + i) : -(ret + i);
+		}
+	}
+	
 	return 0;
 }
 
-//Date Date::operator++(); // ++d => d.operator++(&d)
-//Date Date::operator++(int); // d++ => d.operator(&d, 0);
-//Date Date::operator--(); // --d 
-//Date Date::operator--(int); // d--
+Date Date::operator++(){ // ++d => d.operator++(&d);
+	(*this) = (*this) + 1;
+	return *this;
+}
+
+Date Date::operator++(int){// d++ => d.operator(&d, 0);
+	Date ret(*this);
+	(*this) = (*this) + 1;
+	return ret;
+}
+
+Date Date::operator--(){ // --d => d.operator--(&d);
+	(*this) = (*this) - 1;
+	return *this;
+}
+
+Date Date::operator--(int){// d-- => d.operator--(&d, 0);
+	Date ret(*this);
+	(*this) = (*this) - 1;
+	return ret;
+}
