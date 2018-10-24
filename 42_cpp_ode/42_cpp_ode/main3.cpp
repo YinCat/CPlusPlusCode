@@ -45,7 +45,7 @@ public:
 //		&& d1._month == d2._month;
 //}
 
-int main(){
+int main03(){
 
 	Date d1(2018, 10);
 	Date d2(2018, 10);
