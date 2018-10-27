@@ -26,10 +26,14 @@ int main(){
 	//++d2;
 	//d2++;
 	//d2.Print();
-	Date d1(2018, 10, 27);
-	d1 += 30000;
-	d1.Print();
+	Date d1(2008, 8, 8);
+	//d1.Print();
+	//d1 += -50;
+	//d1 -= -50;
+	//d1.Print();
+	Date d2(2018, 10, 27);
 
+	cout << d2 - d1 << endl;
 
 	return 0;
 }
