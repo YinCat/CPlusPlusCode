@@ -33,12 +33,12 @@ int Date::GetMonthDay(int year, int month){
 //	return ret;
 //}
 
+//构造函数给出默认值
 Date::Date(int year, int month, int day){
 	if (year > 0 && month > 0 && month <= 12 && day <= GetMonthDay(year, month) && day > 0){
 		this->_year = year;
 		this->_month = month;
 		this->_day = day;
-
 	}
 	else{
 		cout << "Date Create error..." << endl;
@@ -116,7 +116,8 @@ void Date::Print(){
 }
 
 Date& Date::operator+=(int day){
-	return (*this) + day;
+	*this = (*this) + day;
+	return *this;
 }
 
 Date Date::operator-(int day){
@@ -141,7 +142,8 @@ Date Date::operator-(int day){
 }
 
 Date& Date::operator-=(int day){
-	return (*this) - day;
+	*this = (*this) - day;
+	return *this;
 }
 
 int Date::operator-(const Date& d){
