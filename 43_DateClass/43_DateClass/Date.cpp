@@ -19,7 +19,7 @@ Date::Date(int year, int month, int day){
 		cout << "Date Create error..." << endl;
 };
 
-bool Date::operator>(const Date& d) {
+bool Date::operator>(const Date& d)  const {
 	if (this->_year > d._year)
 		return true;
 	else if (this->_year == d._year){
@@ -34,13 +34,13 @@ bool Date::operator>(const Date& d) {
 	return false;
 }
 
-bool Date::operator==(const Date& d){
+bool Date::operator==(const Date& d) const {
 	return this->_day == d._day
 		&& this->_year == d._year
 		&& this->_month == d._month;
 }
 
-bool Date::operator<(const Date& d){
+bool Date::operator<(const Date& d) const {
 	if (*this == d)
 		return false;
 	if (*this > d)
@@ -48,29 +48,30 @@ bool Date::operator<(const Date& d){
 	return true;
 }
 
-bool Date::operator !=(const Date& d){
+bool Date::operator !=(const Date& d) const {
 	return !(*this == d);
 }
 
-bool Date::operator <=(const Date& d){
+bool Date::operator <=(const Date& d) const {
 	if (*this < d || *this == d)
 		return true;
 	return false;
 }
 
-bool Date::operator >=(const Date& d){
+bool Date::operator >=(const Date& d) const {
 	if (*this > d || *this == d)
 		return true;
 	return false;
 }
 
-Date Date::operator+(int day){  //让+去复用+=
+Date Date::operator+(int day) const {  //让+去复用+=
 	Date ret(*this);
 	ret += day;
 	return ret;
 }
 
-void Date::Print(){
+//本质其实就是 void Date::Print() const
+void Date::Print() const{
 	cout << this->_year << "年" << this->_month << "月" << this->_day << "日" << endl;
 }
 
@@ -90,7 +91,7 @@ Date& Date::operator+=(int day){
 	return *this;
 }
 
-Date Date::operator-(int day){
+Date Date::operator-(int day) const {
 	Date ret(*this);
 	ret -= day;
 	return ret;

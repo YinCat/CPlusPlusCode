@@ -1,4 +1,5 @@
 #include "Date.h"
+#include <string.h>
 
 int main(){
 	//Date d1(2018, 9, 20);
@@ -26,14 +27,16 @@ int main(){
 	//++d2;
 	//d2++;
 	//d2.Print();
-	Date d1(2008, 8, 8);
+	//Date d1(1004, 2, 25);
 	//d1.Print();
 	//d1 += -50;
 	//d1 -= -50;
 	//d1.Print();
-	Date d2(2018, 10, 27);
+	//Date d2(2018, 10, 27);
 
-	cout << d2 - d1 << endl;
-
+	//cout << d2 - d1 << endl;
+	//int *  p = (int*)malloc(20);
+	cout << "ss" << endl;
 	return 0;
 }
+
