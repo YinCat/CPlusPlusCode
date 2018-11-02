@@ -2,5 +2,5 @@
 #pragma once
 #include<iostream>
 
-//int add(int a, int b = 20);
+int add(int a, int b = 20);
 #endif

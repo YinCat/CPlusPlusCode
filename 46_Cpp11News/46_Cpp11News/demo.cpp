@@ -2,9 +2,9 @@
 #include "demo.h"
 
 //int add(int a, int b = 10)
-//{
-//	return a + b;
-//}
+int add(const int a,const int b){
+	return a + b;
+}
 
 //int add(int a, int b = 20) {
 //	return a + b;
