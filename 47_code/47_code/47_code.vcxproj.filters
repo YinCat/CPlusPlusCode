@@ -24,5 +24,8 @@
     <ClCompile Include="main_03.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="main_04.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

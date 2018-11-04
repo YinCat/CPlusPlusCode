@@ -1,3 +1,4 @@
+#if 0
 #include <iostream>
 #include <mutex>
 using namespace  std;
@@ -34,18 +35,35 @@ class SingletonL
 public:
 	static SingletonL* GetInstance()
 	{
-		
-		if(_spInstance == nullptr)
-		{
-			_spInstance = new SingletonL;
+		//注意这种双检查，极大的提高效率
+		if(_spInstance == nullptr){
+			_smtx.lock();//加锁
+			if(_spInstance == nullptr)
+				_spInstance = new SingletonL;
+			_smtx.unlock();//解锁
 		}
 		return _spInstance;
 	}
+	// 实现一个内嵌垃圾回收类
+	class CGarbo {
+	public:
+		~CGarbo() {
+			if (SingletonL::_spInstance)
+				delete SingletonL::_spInstance;
+		}
+	};
 private:
 	SingletonL(){}
 	static SingletonL* _spInstance;
+	static mutex _smtx;
+	static CGarbo _gc;
 };
+
 SingletonL* SingletonL::_spInstance = nullptr;
+
+SingletonL::CGarbo SingletonL::_gc;
+
+mutex SingletonL::_smtx;
 
 int main(int argc, char* argv[])
 {
@@ -56,3 +74,4 @@ int main(int argc, char* argv[])
 	cout << SingletonL::GetInstance() << endl;
 	return 0;
 }
+#endif
