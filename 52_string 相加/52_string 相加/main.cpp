@@ -21,15 +21,7 @@ public:
 		return ret;
 	}
 
-	string reverse(string& s1, int start, int end){
-		string ret(s1);
-		while (start < end){
-			swap(ret[start], ret[end]);
-			start++;
-			end--;
-		}
-		return ret;
-	}
+	
 	string addStrings(string num1, string num2) {
 		string num_1 = reverse(num1);
 		string num_2 = reverse(num2);
@@ -68,10 +60,16 @@ public:
 	}
 
 	string reverseStr(string s, size_t k) {
-		if (s.length() < k){
-			return s;
+		string ret = reverse(s, 0, k-1);
+		string ret2(ret);
+		if (ret.length() - k < k){
+			ret2 = reverse(ret, k, ret2.length() - 1);
+			return ret2;
 		}
-		return reverse(s, 0, k-1);
+		else if ((s.length() < 2 * k && s.length() > k) || s.length() == k){
+			return reverse(s, 0, k - 1);
+		}
+
 	}
 };
 
