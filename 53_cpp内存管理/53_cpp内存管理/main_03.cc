@@ -1,3 +1,4 @@
+#if 0
 #include<iostream>
 #include <stdlib.h>
 
@@ -30,3 +31,6 @@ int main_03(){
 	operator new(20);
 	return 0;
 }
+
+
+#endif

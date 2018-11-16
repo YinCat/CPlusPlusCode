@@ -1,3 +1,4 @@
+#if 0
 #ifdef _DEBUG
 #define new new(__FILE__, __FUNCDNAME__, __LINE__)
 #define delete(p) operator delete(p, __FILE__, __FUNCDNAME__, __LINE__)
@@ -26,3 +27,4 @@ int main()
 	delete(p);
 	return 0;
 }
+#endif
