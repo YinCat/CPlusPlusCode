@@ -2,7 +2,7 @@
 /* int i = 0; */  
 
 // 2.????????  
-/* int i = 0; */int j = 0;  
+/* int i = 0; */ int j = 0;  
 /* int i = 0; */  
 int j = 0;  
 
