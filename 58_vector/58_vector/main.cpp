@@ -35,5 +35,9 @@ int main(){
 	std::cout << num1 << std::endl;
 	std::cout << num2 << std::endl;
 
+	// ÆÁÄ»Â¼Ïñ×¨¼Ò²âÊÔÑ½
+	cout << "ret1 = " << num1 << endl;
+	cout << "ret2 = " << num2 << endl;
+
 	return 0;
 }
