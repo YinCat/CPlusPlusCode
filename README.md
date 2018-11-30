@@ -6,7 +6,7 @@ Use C or C++ code written in Visualstudio, some of which are small projects, suc
 
 Familiar with C/C++ development, have a daily harvest
 
-我在复习英语....
+我在复习英语.....
 
 # Contact information
 
