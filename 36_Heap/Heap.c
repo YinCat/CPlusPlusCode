@@ -29,21 +29,19 @@ void AdjustDown(HPDataType *arr, int n, int root){
 //向上调整
 void AdjustUp(HPDataType *arr, int n, int child){
 	assert(arr);
+	
 	int parent = (child - 1) / 2;
-	//while (parent >= 0){
+	
 	while (child > 0){
 		if (arr[parent] < arr[child]){
 			Swap(&arr[parent], &arr[child]);
 			child = parent;
 			parent = (child - 1) / 2;
-		}
-		else{
+		}else{
 			break;
 		}
 	}
 }
-
-
 
 void HeapInit(Heap *hp, HPDataType *arr ,int n){
 	int i = 0;
@@ -67,8 +65,8 @@ void HeapDestroy(Heap *hp,int n)
 	hp->_size = 0;
 	hp->_arr = NULL;
 }
-void HeapPush(Heap *hp, HPDataType x)
-{
+
+void HeapPush(Heap *hp, HPDataType x){
 	assert(hp);
 	//增容
 	if (hp->_capacity == hp->_size){
