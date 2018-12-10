@@ -5,7 +5,7 @@
 #include <windows.h>
 
 //指定动态链接库，也可以在项目配置中设置
-//#pragma comment(lib, "ws2_32.lib") 
+#pragma comment(lib, "ws2_32.lib") 
 
 
 int main() {
@@ -14,7 +14,7 @@ int main() {
 	//启动windows的socket环境
 	WSAStartup(ver, &data);
 
-
+	// 1 建立一个socket	// 2 绑定接受客户端连接的端口 bind 	// 3 监听网络端口 listen 	// 4 等待接受客户端连接 accept 	// 5 向客户端发送一条数据send 	// 6 关闭socket  closesocket
 
 	//关闭windows的socket环境
 	WSACleanup();
