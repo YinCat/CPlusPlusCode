@@ -1,12 +1,12 @@
 #define WIN32_LEAN_AND_MEAN //避免引入早期的依赖库
-#define _CRT_SECURE_NO_WARNINGS 1
+#define _CRT_SECURE_NO_WARNINGS 
+#define _WINSOCK_DEPRECATED_NO_WARNINGS 
 
 #include <WinSock2.h>
 #include <windows.h>
 #include <iostream>
 
 
-#define _WINSOCK_DEPRECATED_NO_WARNINGS 1
 //指定动态链接库，也可以在项目配置中设置
 #pragma comment(lib, "ws2_32.lib") 
 
@@ -44,20 +44,20 @@ int main() {
 
 	// 4 等待新客户端连接 accept 
 	sockaddr_in clientAddr = {};
-	int nAddr = sizeof(clientAddr);
+	int nAddrLen = sizeof(clientAddr);
 	SOCKET _cSock = INVALID_SOCKET;
 
-	char msgBuf[] = "hello,socket";
-
+	char msgBuf[] = "Hello,socket";
+	int length = strlen(msgBuf) + 1;
 	while (true) {
-		_cSock = accept(_sock, (sockaddr*)&clientAddr, &nAddr);
+		_cSock = accept(_sock, (sockaddr*)&clientAddr, &nAddrLen);
 
 		if (INVALID_SOCKET == _cSock) {
 			std::cout << "错误，接收到无效客户端Socket" << std::endl;
 		}
 		std::cout << "新客户端加入:IP=" << inet_ntoa(clientAddr.sin_addr) << std::endl;
 		// 5 向客户端发送一条数据send 
-		send(_cSock, msgBuf, strlen(msgBuf) + 1, 0);
+		send(_cSock, msgBuf, length, 0);
 		//--循环4-5
 	}
 	
