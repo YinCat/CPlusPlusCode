@@ -6,14 +6,10 @@
 #include <windows.h>
 #include <iostream>
 #include <stdio.h>
+//TODO 有BUG
 
 //指定动态链接库，也可以在项目配置中设置
 #pragma comment(lib, "ws2_32.lib") 
-
-//struct DataPackage{
-//	int age;
-//	char name[32];
-//};
 
 enum MyCmd
 {
@@ -26,10 +22,11 @@ enum MyCmd
 
 struct DataHeader {
 	short dataLength;//数据长度
+	//short MaxLength;
 	short cmd;
 };
 
-struct Login :public DataHeader{
+struct Login :public DataHeader {
 	Login() {
 		dataLength = sizeof(Login);
 		cmd = CMD_LOGIN;
@@ -105,54 +102,58 @@ int main() {
 	if (INVALID_SOCKET == _cSock) {
 		std::cout << "错误，接收到无效客户端Socket" << std::endl;
 	}
-	std::cout << "新客户端加入:cSock = " << _cSock <<",IP=" << inet_ntoa(clientAddr.sin_addr) << std::endl;
+	std::cout << "新客户端加入:cSock = " << _cSock << ",IP=" << inet_ntoa(clientAddr.sin_addr) << std::endl;
 
 	char _recvBuf[1024] = { 0 };
 	while (true) {
 		// 5 接收客户端的数据
-		DataHeader header = {};
-		int nLen = recv(_cSock, (char*)&header, sizeof(DataHeader), 0);
+		//缓冲区
+		char szRecv[4096] = {0};
+		int nLen = recv(_cSock, (char*)&szRecv, sizeof(DataHeader), 0);
+		DataHeader *header = (DataHeader*)_recvBuf;
 		if (nLen < 0) {
 			std::cout << "客户端退出,任务结束" << std::endl;
 			break;
 		}
 		//std::cout << "收到命令：" << header.cmd << "数据长度:" << header.dataLength << std::endl;
 		// 6 处理请求
-		switch (header.cmd) 
+		if (nLen >= sizeof(DataHeader)) {
+			//处理粘包的可能（多个消息同时发的时候）
+		}
+		switch (header->cmd)
 		{
-			case CMD_LOGIN:
-			{
-				Login login = {};
-				recv(_cSock, (char*)&login+sizeof(DataHeader), sizeof(Login)-sizeof(DataHeader), 0);
-				std::cout << "收到命令：CMD_LOGIN" << " 数据长度:" << login.dataLength
-					<< " UserName=" << login.userName << " Password=" << login.passWord << std::endl;
-				//忽略用户名密码验证
-				LoginResult ret;
-				//发送消息体
-				send(_cSock, (char*)&ret, sizeof(LoginResult), 0);
-			}
+		case CMD_LOGIN:
+		{
+			recv(_cSock, szRecv + sizeof(DataHeader), header->dataLength - sizeof(DataHeader), 0);
+			Login *login = (Login*)szRecv;
+
+			std::cout << "收到命令：CMD_LOGIN" << " 数据长度:" << login->dataLength
+				<< " UserName=" << login->userName << " Password=" << login->passWord << std::endl;
+			//忽略用户名密码验证
+			LoginResult ret;
+			//发送消息体
+			send(_cSock, (char*)&ret, sizeof(LoginResult), 0);
+		}
+		break;
+		case CMD_LOGOUT:
+		{
+			recv(_cSock, szRecv + sizeof(DataHeader), header->dataLength - sizeof(DataHeader), 0);
+			LogOut *logout = (LogOut*)szRecv;
+			std::cout << "收到命令：CMD_LOGOUT " << "数据长度:" << logout->dataLength
+				<< " UserName=" << logout->userName << std::endl;
+			//忽略用户名密码验证
+			LogOutResult ret;
+			send(_cSock, (char*)&ret, sizeof(LogOutResult), 0);
+		}
+		break;
+		default:
+			DataHeader header = { 0, CMD_ERROR};
+			send(_cSock, (char*)&header, sizeof(DataHeader), 0);
 			break;
-			case CMD_LOGOUT:
-			{
-				LogOut logout = {};
-				recv(_cSock, (char*)&logout + sizeof(DataHeader), sizeof(LogOut) - sizeof(DataHeader), 0);
-				std::cout << "收到命令：CMD_LOGOUT " << "数据长度:" << logout.dataLength
-					<< " UserName=" << logout.userName << std::endl;
-				//忽略用户名密码验证
-				LogOutResult ret;
-				send(_cSock, (char*)&ret, sizeof(LogOutResult), 0);
-			}
-			break;
-			default:
-				header.cmd = CMD_ERROR;
-				header.dataLength = 0;
-				//发送消息头
-				send(_cSock, (char*)&header, sizeof(DataHeader), 0);
-				break;
 		}
 	}
 
-	// 8 关闭socket  closesocket
+	// 8 关闭socket
 	closesocket(_sock);
 
 	//关闭windows的socket环境

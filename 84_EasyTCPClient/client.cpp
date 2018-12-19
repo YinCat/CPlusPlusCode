@@ -9,11 +9,6 @@
 //指定动态链接库，也可以在项目配置中设置
 #pragma comment(lib, "ws2_32.lib")
 
-//struct DataPackage{
-//	int age;
-//	char name[32];
-//};
-
 enum MyCmd
 {
 	CMD_LOGIN,
@@ -97,7 +92,7 @@ int main()
 	}
 
 	char cmdBuf[1024] = { 0 };
-	while (true) 
+	while (true)
 	{
 		// 3 接收键盘输入
 		std::cin >> cmdBuf;
@@ -125,7 +120,7 @@ int main()
 		else if (0 == strcmp(cmdBuf, "logout")) {
 			LogOut logOut;
 			strcpy(logOut.userName, "Tim");
-			
+
 			//发送正文
 			send(_sock, (const char*)&logOut, sizeof(LogOut), 0);
 
@@ -139,7 +134,7 @@ int main()
 			std::cout << "不支持的命令，请重新输入" << std::endl;
 		}
 	}
-	
+
 	// 7 关闭Socket
 	closesocket(_sock);
 
