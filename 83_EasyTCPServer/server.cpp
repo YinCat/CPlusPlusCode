@@ -137,7 +137,8 @@ int main() {
 		break;
 		case CMD_LOGOUT:
 		{
-			recv(_cSock, szRecv + sizeof(DataHeader), header->dataLength - sizeof(DataHeader), 0);
+			//recv(_cSock, szRecv + sizeof(DataHeader), header->dataLength - sizeof(DataHeader), 0);
+			recv(_sock, szRecv + sizeof(DataHeader), header->dataLength - sizeof(DataHeader), 0);
 			LogOut *logout = (LogOut*)szRecv;
 			std::cout << "收到命令：CMD_LOGOUT " << "数据长度:" << logout->dataLength
 				<< " UserName=" << logout->userName << std::endl;
