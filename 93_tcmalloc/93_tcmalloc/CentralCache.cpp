@@ -60,12 +60,14 @@ Span* CentralCache::GetOneSpan(SpanList* spanlist, size_t bytes)
 	return newspan;
 }
 
+
 // 从中心缓存获取一定数量的对象给thread cache
 size_t CentralCache::FetchRangeObj(void*& start, void*& end, size_t num, size_t bytes)
 {
 	size_t index = ClassSize::Index(bytes);
 	SpanList* spanlist = &_spanlist[index];
 	Span* span = GetOneSpan(spanlist, bytes);
+	
 
 	void* cur = span->_objlist;
 	void* prev = cur;
