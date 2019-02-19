@@ -1,3 +1,4 @@
+#if 0
 #include <iostream>
 #include <set>
 #include <vector>
@@ -268,3 +269,4 @@ int main(void)
 	cout << fun(17) << endl;
 	return 0;
 }
+#endif

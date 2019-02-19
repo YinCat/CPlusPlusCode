@@ -1,0 +1,17 @@
+# exinclude files
+*.ilk
+*.exe
+*.tlog
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.vcxproj
+*.vcxproj.filters
+
+*.obj
+*.log
+*.lastbuildstate
+*.pdb
+*.idb
+*.ik
