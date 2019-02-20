@@ -1,4 +1,4 @@
-# exinclude files
+# exinclude files（VisualStudio）
 *.ilk
 *.exe
 *.tlog
